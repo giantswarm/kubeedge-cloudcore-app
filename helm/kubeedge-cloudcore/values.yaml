@@ -177,7 +177,7 @@ mosquitto:
   enable: true
   image:
     repository: eclipse-mosquitto
-    tag: "1.6.15"
+    tag: "2.0.22"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   labels:
