@@ -1,0 +1,15 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: 'Merge pull request #6364 from Shelley-BaoYue/automated-cherry-pick-of-#6363-upstream-release-1.21...'
+      sha: 2aa397a72e538821afde98a63b33d00052e23dec
+      tags:
+      - v1.21.0
+    path: kubeedge-cloudcore
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/kubeedge-cloudcore
+kind: LockConfig
