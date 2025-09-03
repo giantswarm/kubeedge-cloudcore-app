@@ -63,7 +63,7 @@ cloudCore:
     taskManager:
       enable: false
   service:
-    enable: true
+    enable: false
     type: "NodePort"
     cloudhubNodePort: "30000"
     cloudhubQuicNodePort: "30001"

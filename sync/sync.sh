@@ -15,4 +15,5 @@ vendir sync
 # patches
 ./sync/patches/crds/patch.sh
 ./sync/patches/chart/patch.sh
+./sync/patches/values/patch.sh
 
