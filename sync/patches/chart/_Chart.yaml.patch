@@ -1,0 +1,26 @@
+diff --git a/helm/kubeedge-cloudcore/Chart.yaml b/helm/kubeedge-cloudcore/Chart.yaml
+index 05c23b3..3e3f280 100644
+--- a/helm/kubeedge-cloudcore/Chart.yaml
++++ b/helm/kubeedge-cloudcore/Chart.yaml
+@@ -1,7 +1,18 @@
+-apiVersion: v1
+-name: cloudcore
+-version: 1.21.0
++apiVersion: v2
+ appVersion: 1.21.0
++name: kubeedge-cloudcore
++version: 1.21.0
++annotations:
++  application.giantswarm.io/team: "rocket"
+ description: The KubeEdge cloudcore component.
++home: https://github.com/giantswarm/kubeedge-cloudcore-app
++icon: https://github.com/kubeedge/kubeedge/blob/master/docs/images/kubeedge-logo-only.png
++keywords:
++  - edge
++  - iot
++  - kubernetes
++maintainers:
++  - name: Team Rocket
++    email: team-rocket@giantswarm.io
+ sources:
+ - https://github.com/kubeedge/kubeedge

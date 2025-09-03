@@ -10,5 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add initial vendir sync of upstream chart at v1.21.0.
+- Improve vendir sync config.
 
 [Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/tree/main
