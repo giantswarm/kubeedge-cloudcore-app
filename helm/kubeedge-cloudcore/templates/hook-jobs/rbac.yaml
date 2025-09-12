@@ -1,0 +1,44 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook-weight": "5"
+rules:
+  # required by daemonset creation job
+  - apiGroups: ["apps"]
+    resources: ["daemonsets"]
+    resourceNames: ["cilium", "cilium-kubeedge"]
+    verbs: ["get", "create", "update", "patch"]
+  # required by cilium rbac patch job
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["clusterroles"]
+    resourceNames: ["cilium"]
+    verbs: ["get", "update"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["clusterrolebindings"]
+    resourceNames: ["cilium"]
+    verbs: ["get", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook-weight": "5"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+subjects:
+  - kind: ServiceAccount
+    name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+    namespace: "{{ .Release.Namespace }}"

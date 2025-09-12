@@ -1,0 +1,78 @@
+# This job patches Cilium's RBAC to allow kubeedge's cloudcore to
+# manage Cilium on the edge nodes.
+#
+# This job *runs on every update* of the chart.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "resource.default.name" . }}-patch-cilium-rbac-job"
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook-weight": "5"
+spec:
+  ttlSecondsAfterFinished: 86400 # 24h
+  template:
+    metadata:
+      name: "{{ include "resource.default.name" . }}-patch-cilium-rbac-job"
+      namespace: "{{ $.Release.Namespace }}"
+      labels:
+        {{- include "labels.common" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      serviceAccountName: "{{- include "kubeEdgeHookServiceAccount" . }}"
+      securityContext:
+        runAsUser: {{ include "securityContext.runAsUser" . }}
+        runAsGroup: {{ include "securityContext.runAsGroup" . }}
+      containers:
+        - name: patch-cilium-rbac-for-kubeedge
+          {{- include "jobContainerCommon" . | nindent 10 }}
+          command:
+            - "/bin/bash"
+            - "-c"
+            - |
+              set -o errexit
+              set -o pipefail
+              set -o nounset
+              CILIUM_CLUSTERROLE=$(mktemp)
+              CILIUM_CLUSTERROLE_NEW=$(mktemp)
+              CILIUM_CLUSTERROLEBINDING=$(mktemp)
+              CILIUM_CLUSTERROLEBINDING_NEW=$(mktemp)
+
+              if ! kubectl get clusterrole cilium -o json >"${CILIUM_CLUSTERROLE}"; then
+                echo "[ERROR] Failed to retrieve Cilium ClusterRole."
+                exit 1
+              fi
+
+              if jq '(.rules[] | select((.apiGroups | index("cilium.io"))
+                  and (.resources | index("ciliumpodippools"))).verbs)
+                  |= (. + ["get"] | unique)' "${CILIUM_CLUSTERROLE}" > "${CILIUM_CLUSTERROLE_NEW}"; then
+                kubectl apply -f "${CILIUM_CLUSTERROLE_NEW}" || {
+                  echo "[ERROR] Failed to apply updated Cilium ClusterRole"
+                  exit 1
+                }
+              else
+                echo "[ERROR] Failed to update retrieved Cilium ClusterRole with jq."
+                exit 1
+              fi
+
+              if ! kubectl get clusterrolebinding cilium -o json > "${CILIUM_CLUSTERROLEBINDING}"; then
+                echo "[ERROR] Failed to retrieve Cilium ClusterRoleBinding."
+                exit 1
+              fi
+
+              if jq '.subjects = ((.subjects // []) + [
+                  {"kind": "ServiceAccount", "name": "cloudcore", "namespace": "{{ .Release.Namespace }}"},
+                  {"kind": "ServiceAccount", "name": "cloudcore", "namespace": "default"}
+                ])' "${CILIUM_CLUSTERROLEBINDING}" > "${CILIUM_CLUSTERROLEBINDING_NEW}"; then
+                kubectl apply -f "${CILIUM_CLUSTERROLEBINDING_NEW}" || {
+                  echo "[ERROR] Failed to apply updated Cilium ClusterRoleBinding."
+                  exit 1
+                }
+              else
+                echo "[ERROR] Failed to update retrieved Cilium ClusterRoleBinding with jq."
+                exit 1
+              fi

@@ -2,7 +2,7 @@ diff --git a/helm/kubeedge-cloudcore/values.yaml b/helm/kubeedge-cloudcore/value
 index 21367c5..c11fa42 100644
 --- a/helm/kubeedge-cloudcore/values.yaml
 +++ b/helm/kubeedge-cloudcore/values.yaml
-@@ -57,13 +57,13 @@ cloudCore:
+@@ -57,13 +57,13 @@
      cloudStream:
        enable: true
      dynamicController:
@@ -18,3 +18,12 @@ index 21367c5..c11fa42 100644
      type: "NodePort"
      cloudhubNodePort: "30000"
      cloudhubQuicNodePort: "30001"
+@@ -199,3 +199,8 @@
+     requests:
+       cpu: 100m
+       memory: 50Mi
++
++kubectlImage:
++  name: giantswarm/kubectl
++  registry: gsoci.azurecr.io
++  tag: 1.31.2
