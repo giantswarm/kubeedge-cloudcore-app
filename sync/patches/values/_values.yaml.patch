@@ -1,8 +1,15 @@
 diff --git a/helm/kubeedge-cloudcore/values.yaml b/helm/kubeedge-cloudcore/values.yaml
-index 096cc6a..21367c5 100644
+index 21367c5..c11fa42 100644
 --- a/helm/kubeedge-cloudcore/values.yaml
 +++ b/helm/kubeedge-cloudcore/values.yaml
-@@ -63,7 +63,7 @@ cloudCore:
+@@ -57,13 +57,13 @@ cloudCore:
+     cloudStream:
+       enable: true
+     dynamicController:
+-      enable: false
++      enable: true
+     router:
+       enable: false
      taskManager:
        enable: false
    service:

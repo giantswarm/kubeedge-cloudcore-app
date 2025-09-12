@@ -57,7 +57,7 @@ cloudCore:
     cloudStream:
       enable: true
     dynamicController:
-      enable: false
+      enable: true
     router:
       enable: false
     taskManager:
