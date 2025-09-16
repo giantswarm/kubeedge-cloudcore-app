@@ -1,29 +1,9 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
-  labels:
-    {{- include "labels.common" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": "post-install,post-upgrade"
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-    "helm.sh/hook-weight": "5"
-rules:
-  # required by daemonset creation job
-  - apiGroups: ["apps"]
-    resources: ["daemonsets"]
-    resourceNames: ["cilium", "cilium-kubeedge"]
-    verbs: ["get", "create", "update", "patch"]
-  # required by cilium rbac patch job
-  - apiGroups: ["rbac.authorization.k8s.io"]
-    resources: ["clusterroles"]
-    resourceNames: ["cilium"]
-    verbs: ["get", "update"]
-  - apiGroups: ["rbac.authorization.k8s.io"]
-    resources: ["clusterrolebindings"]
-    resourceNames: ["cilium"]
-    verbs: ["get", "update"]
----
+# We have to use the cluster-admin role for the hook service account
+# because the rbac creation job needs elevated permissions in order
+# to create the necessary rbac. The rbac below and the associated
+# service account are always deleted after the job completes
+# (regardless of the job's success). This is to ensure that the service
+# account and the elevated rbac are not left in the cluster.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -32,12 +12,12 @@ metadata:
     {{- include "labels.common" . | nindent 4 }}
   annotations:
     "helm.sh/hook": "post-install,post-upgrade"
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+    "helm.sh/hook-weight": "0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+  name: "cluster-admin"
 subjects:
   - kind: ServiceAccount
     name: "{{- include "kubeEdgeHookServiceAccount" . }}"

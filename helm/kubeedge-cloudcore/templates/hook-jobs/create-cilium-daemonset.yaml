@@ -63,7 +63,7 @@ spec:
               "
 
               # retrieve existing cilium daemonset
-              if ! kubectl get daemonset -n kube-system cilium -o json >"${CILIUM_DS}"; then
+              if ! kubectl get daemonset -n kube-system cilium -o json > "${CILIUM_DS}"; then
                 echo "[ERROR] Failed to retrieve cilium daemonset."
                 exit 1
               fi
@@ -73,7 +73,7 @@ spec:
                 del(.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"]) |
                 del(.metadata.creationTimestamp, .metadata.resourceVersion, .metadata.uid) |
                 .metadata.name = "cilium-kubeedge"' "${CILIUM_DS}" > "${KUBEEDGE_DS}"; then
-                kubectl apply -f "$FILE_NAME" || {
+                kubectl apply -f "${KUBEEDGE_DS}" || {
                   echo "[ERROR] Failed to apply cilium-kubeedge daemonset."
                   exit 1
                 }
@@ -83,7 +83,7 @@ spec:
               fi
 
               # patch the new kubeedge daemonset
-              if kubectl patch daemonset -n kube-system cilium-kubeedge --patch "$PATCH"; then
+              if kubectl patch daemonset -n kube-system cilium-kubeedge --patch "${KUBEEDGE_DS_PATCH}"; then
                 echo "[INFO] cilium-kubeedge daemonset patched successfully."
               else
                 echo "[ERROR] Failed to patch cilium-kubeedge daemonset."

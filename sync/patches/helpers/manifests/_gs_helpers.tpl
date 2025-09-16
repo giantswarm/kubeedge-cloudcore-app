@@ -36,7 +36,7 @@ helm.sh/chart: {{ include "chart" . | quote }}
 {{- define "jobContainerCommon" -}}
 image: "{{ .Values.kubectlImage.registry }}/{{ .Values.kubectlImage.name }}:{{ .Values.kubectlImage.tag }}"
 securityContext:
-  readOnlyRootFilesystem: true
+  readOnlyRootFilesystem: false
   allowPrivilegeEscalation: false
   capabilities:
     drop:
