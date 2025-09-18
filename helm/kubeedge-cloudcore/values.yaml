@@ -57,7 +57,7 @@ cloudCore:
     cloudStream:
       enable: true
     dynamicController:
-      enable: false
+      enable: true
     router:
       enable: false
     taskManager:
@@ -199,3 +199,8 @@ mosquitto:
     requests:
       cpu: 100m
       memory: 50Mi
+
+kubectlImage:
+  name: giantswarm/kubectl
+  registry: gsoci.azurecr.io
+  tag: 1.31.2
