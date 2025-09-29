@@ -1,0 +1,102 @@
+# This job patches Cilium's RBAC to allow kubeedge's cloudcore to
+# manage Cilium on the edge nodes.
+#
+# This job *runs on every update* of the chart.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "resource.default.name" . }}-patch-cilium-rbac-job"
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook-weight": "5"
+spec:
+  ttlSecondsAfterFinished: 86400 # 24h
+  template:
+    metadata:
+      name: "{{ include "resource.default.name" . }}-patch-cilium-rbac-job"
+      namespace: "{{ $.Release.Namespace }}"
+      labels:
+        {{- include "labels.common" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      serviceAccountName: "{{- include "kubeEdgeHookServiceAccount" . }}"
+      securityContext:
+        runAsUser: {{ include "securityContext.runAsUser" . }}
+        runAsGroup: {{ include "securityContext.runAsGroup" . }}
+      containers:
+        - name: patch-cilium-rbac-for-kubeedge
+          {{- include "jobContainerCommon" . | nindent 10 }}
+          command:
+            - "/bin/bash"
+            - "-c"
+            - |
+              set -o errexit
+              set -o pipefail
+              set -o nounset
+              CILIUM_CLUSTERROLE=$(mktemp)
+              KUBEEDGE_CLUSTERROLE=$(mktemp)
+              CILIUM_CLUSTERROLEBINDING=$(mktemp)
+              KUBEEDGE_CLUSTERROLEBINDING=$(mktemp)
+
+              # get the existing cilium clusterrole
+              if ! kubectl get clusterrole cilium -o json >"${CILIUM_CLUSTERROLE}"; then
+                echo "[ERROR] Failed to retrieve cilium clusterrole."
+                exit 1
+              fi
+
+              # modify clusterrole for kubeedge and apply it
+              #
+              # this jq command does the following:
+              # - cleans up the role by removing status and some metadata fields
+              # - renames the role to "cilium-kubeedge"
+              # - adds "get" to the verbs of the rule that allows access to ciliumpodippools
+              #
+              if jq 'del(.status)
+                | del(.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"])
+                | del(.metadata.creationTimestamp, .metadata.resourceVersion, .metadata.uid)
+                | .metadata.name = "cilium-kubeedge"
+                | (.rules[] | select((.apiGroups | index("cilium.io"))
+                  and (.resources | index("ciliumpodippools"))).verbs)
+                  |= (. + ["get"] | unique)' "${CILIUM_CLUSTERROLE}" > "${KUBEEDGE_CLUSTERROLE}"; then
+
+                kubectl apply -f "${KUBEEDGE_CLUSTERROLE}" || {
+                  echo "[ERROR] Failed to apply cilium-kubeedge clusterrole."
+                  exit 1
+                }
+              else
+                echo "[ERROR] Failed to modify cilium clusterrole with jq."
+                exit 1
+              fi
+
+              # get the existing cilium clusterrolebinding
+              if ! kubectl get clusterrolebinding cilium -o json > "${CILIUM_CLUSTERROLEBINDING}"; then
+                echo "[ERROR] Failed to retrieve cilium clusterrolebinding."
+                exit 1
+              fi
+
+              # modify clusterrolebinding for kubeedge and apply it
+              #
+              # this jq command does the following:
+              # - cleans up the clusterolebinding by removing status and some metadata fields
+              # - renames the clusterrolebinding to "cilium-kubeedge"
+              # - replaces the subjects with the cloudcore serviceaccount in both the kubeedge and default namespaces
+              #
+              if jq 'del(.status)
+                | del(.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"])
+                | del(.metadata.creationTimestamp, .metadata.resourceVersion, .metadata.uid)
+                | .metadata.name = "cilium-kubeedge"
+                | .subjects = [{"kind": "ServiceAccount", "name": "cloudcore", "namespace": "{{ .Release.Namespace }}"},
+                  {"kind": "ServiceAccount", "name": "cloudcore", "namespace": "default"}]' "${CILIUM_CLUSTERROLEBINDING}" > "${KUBEEDGE_CLUSTERROLEBINDING}"; then
+
+                kubectl apply -f "${KUBEEDGE_CLUSTERROLEBINDING}" || {
+                  echo "[ERROR] Failed to apply cilium-kubeedge clusterrolebinding."
+                  exit 1
+                }
+              else
+                echo "[ERROR] Failed to update retrieved cilium clusterrolebinding with jq."
+                exit 1
+              fi
