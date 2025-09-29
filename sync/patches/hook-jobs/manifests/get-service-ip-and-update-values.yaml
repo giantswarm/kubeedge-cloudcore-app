@@ -23,7 +23,7 @@ spec:
         {{- include "labels.common" . | nindent 8 }}
     spec:
       restartPolicy: Never
-      serviceAccountName: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
+      serviceAccountName: "{{- include "kubeEdgeHookServiceAccount" . }}"
       securityContext:
         runAsUser: {{ include "securityContext.runAsUser" . }}
         runAsGroup: {{ include "securityContext.runAsGroup" . }}
