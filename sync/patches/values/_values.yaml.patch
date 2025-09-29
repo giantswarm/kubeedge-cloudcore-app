@@ -2,7 +2,7 @@ diff --git a/helm/kubeedge-cloudcore/values.yaml b/helm/kubeedge-cloudcore/value
 index 21367c5..c11fa42 100644
 --- a/helm/kubeedge-cloudcore/values.yaml
 +++ b/helm/kubeedge-cloudcore/values.yaml
-@@ -57,13 +57,13 @@
+@@ -57,14 +57,14 @@ cloudCore:
      cloudStream:
        enable: true
      dynamicController:
@@ -13,12 +13,13 @@ index 21367c5..c11fa42 100644
      taskManager:
        enable: false
    service:
--    enable: true
-+    enable: false
-     type: "NodePort"
+     enable: true
+-    type: "NodePort"
++    type: "LoadBalancer"
      cloudhubNodePort: "30000"
      cloudhubQuicNodePort: "30001"
-@@ -199,3 +199,8 @@
+     cloudhubHttpsNodePort: "30002"
+@@ -199,3 +199,8 @@ mosquitto:
      requests:
        cpu: 100m
        memory: 50Mi

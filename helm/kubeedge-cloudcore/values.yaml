@@ -63,8 +63,8 @@ cloudCore:
     taskManager:
       enable: false
   service:
-    enable: false
-    type: "NodePort"
+    enable: true
+    type: "LoadBalancer"
     cloudhubNodePort: "30000"
     cloudhubQuicNodePort: "30001"
     cloudhubHttpsNodePort: "30002"
