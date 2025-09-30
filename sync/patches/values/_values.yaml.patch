@@ -2,7 +2,26 @@ diff --git a/helm/kubeedge-cloudcore/values.yaml b/helm/kubeedge-cloudcore/value
 index 21367c5..c11fa42 100644
 --- a/helm/kubeedge-cloudcore/values.yaml
 +++ b/helm/kubeedge-cloudcore/values.yaml
-@@ -57,14 +57,14 @@ cloudCore:
+@@ -5,7 +5,7 @@ appVersion: "1.21.0"
+
+ cloudCore:
+   replicaCount: 1
+-  hostNetWork: true
++  hostNetWork: false
+   image:
+     repository: "kubeedge/cloudcore"
+     tag: "v1.21.0"
+@@ -40,8 +40,7 @@ cloudCore:
+     cloudHub:
+       # Caution!: Leave this entry to empty will cause CloudCore to exit abnormally once KubeEdge is enabled.
+       # At least a public IP Address or an IP which can be accessed by edge nodes must be provided!
+-      advertiseAddress:
+-        - ""
++      advertiseAddress: []
+       dnsNames:
+         - ""
+       nodeLimit: "1000"
+@@ -57,14 +56,14 @@ cloudCore:
      cloudStream:
        enable: true
      dynamicController:
@@ -19,7 +38,7 @@ index 21367c5..c11fa42 100644
      cloudhubNodePort: "30000"
      cloudhubQuicNodePort: "30001"
      cloudhubHttpsNodePort: "30002"
-@@ -199,3 +199,8 @@ mosquitto:
+@@ -199,3 +198,8 @@ mosquitto:
      requests:
        cpu: 100m
        memory: 50Mi
