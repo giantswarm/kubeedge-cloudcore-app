@@ -5,6 +5,9 @@ metadata:
   {{- with .Values.cloudCore.labels }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-weight": "10"
 data:
   cloudcore.yaml: |
     apiVersion: cloudcore.config.kubeedge.io/v1alpha2
@@ -17,6 +20,8 @@ data:
     modules:
       cloudHub:
         advertiseAddress:
+        # Service IP will be injected below by the check-service-ip hook job
+        - PLACEHOLDER
         {{- range .Values.cloudCore.modules.cloudHub.advertiseAddress }}
         - {{  .  }}
         {{- end}}
