@@ -9,4 +9,5 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_d
 
 cd "${repo_dir}"
 
-cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/templates/hook-jobs
+mkdir ./helm/kubeedge-cloudcore/templates/hook-jobs
+cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/templates/hook-jobs/
