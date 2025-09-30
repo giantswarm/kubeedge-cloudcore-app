@@ -26,6 +26,10 @@ helm.sh/chart: {{ include "chart" . | quote }}
 {{- include "resource.default.name" $ }}-update-cilium
 {{- end }}
 
+{{- define "kubeEdgeServiceHookServiceAccount" }}
+{{- include "resource.default.name" $ }}-update-values
+{{- end }}
+
 {{- define "securityContext.runAsUser" -}}
 1000
 {{- end -}}
