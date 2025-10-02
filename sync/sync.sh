@@ -21,5 +21,6 @@ vendir sync
 ./sync/patches/hook-jobs/patch.sh
 ./sync/patches/policy-exceptions/patch.sh
 ./sync/patches/readme/patch.sh
+./sync/patches/kube-linter/patch.sh
 # crds should always be last
 ./sync/patches/crds/patch.sh
