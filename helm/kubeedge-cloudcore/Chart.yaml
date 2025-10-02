@@ -14,5 +14,7 @@ keywords:
 maintainers:
   - name: Team Rocket
     email: team-rocket@giantswarm.io
+dependencies:
+  - name: kubeedge-cloudcore-crds
 sources:
 - https://github.com/kubeedge/kubeedge
