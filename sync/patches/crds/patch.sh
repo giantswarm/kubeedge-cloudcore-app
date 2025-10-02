@@ -14,6 +14,7 @@ cp ./vendor/kubeedge-cloudcore/manifests/charts/cloudcore/crds/* ./helm/kubeedge
 
 # update the crd Chart.yaml if the CRDs have changed
 CRDS_CHANGED=0
+CHART_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds"
 CRDS_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates"
 
 # check for updated CRDs
@@ -29,5 +30,11 @@ fi
 # get the current version of the upstream cloudcore chart and update the crd chart version
 if [[ $CRDS_CHANGED -eq 1 ]]; then
     UPSTREAM_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
-    sed -i -E "s/^(version: ).*/\1${UPSTREAM_VERSION}/" "${CRDS_DIR}/Chart.yaml"
+    sed -i -E "s/^(version: ).*/\1${UPSTREAM_VERSION}/" "${CHART_DIR}/Chart.yaml"
+
+    # add annotation to ensure helm doesn't delete CRDs
+    for crd in "${CRDS_DIR}"/*; do
+        # this command ensures that the annotations field exists and then adds the helm annotation. it does not remove any existing annotations.
+        yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
+    done
 fi
