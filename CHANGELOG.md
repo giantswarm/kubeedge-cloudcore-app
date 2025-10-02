@@ -17,5 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Giant Swarm PolicyException.
 - Add JSON schema and chart README.
 - Patch all CRDs to ensure they cannot be deleted by Helm.
+- Add CRD subchart as a dependency to satisfy the linter.
 
 [Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/tree/main
