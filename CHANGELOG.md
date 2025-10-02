@@ -15,5 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extend Service and convert it to a Helm hook.
 - Add a pre-install hook job to get Service IP and inject it into the cloudcore configmap.
 - Add Giant Swarm PolicyException.
+- Add JSON schema and chart README.
 
 [Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/tree/main

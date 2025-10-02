@@ -21,3 +21,4 @@ vendir sync
 ./sync/patches/helpers/patch.sh
 ./sync/patches/hook-jobs/patch.sh
 ./sync/patches/policy-exceptions/patch.sh
+./sync/patches/readme/patch.sh
