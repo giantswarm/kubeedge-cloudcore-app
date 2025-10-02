@@ -9,4 +9,7 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_d
 
 cd "${repo_dir}"
 
+set -x
+git apply "${script_dir}/_helpers.tpl.patch"
+{ set +x; } 2>/dev/null
 cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/templates/
