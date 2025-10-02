@@ -1,3 +1,8 @@
+
+{{- $addressArray := default (list) .Values.cloudCore.modules.cloudHub.advertiseAddress }}
+{{- if and (not .Values.cloudCore.service.enable) (eq (len $addressArray) 0) }}
+{{ fail "Invalid configuration: cloudCore.service.enable is false and .cloudCore.modules.cloudHub.advertiseAddress is empty. One (or optionally both) must be set." }}
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
