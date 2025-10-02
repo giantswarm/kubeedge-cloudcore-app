@@ -9,10 +9,4 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_d
 
 cd "${repo_dir}"
 
-readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
-
-set -x
-git apply "${script_dir_rel}/_values.yaml.patch"
-cp "${script_dir_rel}/values.schema.json" ./helm/kubeedge-cloudcore/
-
-{ set +x; } 2>/dev/null
+cp -r "${script_dir}"/README.md ./helm/kubeedge-cloudcore/
