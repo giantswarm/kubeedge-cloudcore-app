@@ -20,8 +20,10 @@ data:
     modules:
       cloudHub:
         advertiseAddress:
+        {{- if and (.Values.cloudCore.service.enable) }}
         # Service IP will be injected below by the check-service-ip hook job
         - PLACEHOLDER
+        {{- end }}
         {{- range .Values.cloudCore.modules.cloudHub.advertiseAddress }}
         - {{  .  }}
         {{- end}}

@@ -22,6 +22,7 @@ subjects:
   - kind: ServiceAccount
     name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
     namespace: "{{ .Release.Namespace }}"
+{{- if and (.Values.cloudCore.service.enable) }}
 ---
 # This role and binding are used by the hook job which waits for
 # the cloudcore service to be assigned an IP and patches the configmap.
@@ -63,3 +64,4 @@ roleRef:
   kind: Role
   name: cloudcore-service-hook
   apiGroup: rbac.authorization.k8s.io
+{{- end }}

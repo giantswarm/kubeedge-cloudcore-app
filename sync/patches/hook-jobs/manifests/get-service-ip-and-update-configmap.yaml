@@ -1,3 +1,4 @@
+{{- if and (.Values.cloudCore.service.enable) }}
 # This job waits for the cloudcore Service to obtain an external IP
 # and then patches the cloudcore ConfigMap to set the advertiseAddress.
 #
@@ -96,3 +97,4 @@ spec:
                 kubectl replace -f /tmp/original-configmap.yaml || echo "Failed to restore original configmap"
                 exit 1
               fi
+{{- end }}
