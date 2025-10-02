@@ -12,5 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add initial vendir sync of upstream chart at v1.21.0.
 - Improve vendir sync config.
 - Add hook jobs to configure Cilium to work with KubeEdge.
+- Extend Service and convert it to a Helm hook.
+- Add a pre-install hook job to get Service IP and inject it into the cloudcore configmap.
 
 [Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/tree/main

@@ -1,0 +1,25 @@
+diff --git a/helm/kubeedge-cloudcore/templates/service_cloudcore.yaml b/helm/kubeedge-cloudcore/templates/service_cloudcore.yaml
+index 0576b8f..ec9c216 100644
+--- a/helm/kubeedge-cloudcore/templates/service_cloudcore.yaml
++++ b/helm/kubeedge-cloudcore/templates/service_cloudcore.yaml
+@@ -2,15 +2,18 @@
+ apiVersion: v1
+ kind: Service
+ metadata:
++  annotations:
+   {{- with .Values.cloudCore.service.annotations }}
+-  annotations: {{- toYaml . | nindent 4 }}
++  {{- toYaml . | nindent 4 }}
+   {{- end }}
++    "helm.sh/hook": "pre-install"
++    "helm.sh/hook-weight": "-5"
+   {{- with .Values.cloudCore.labels }}
+   labels: {{- toYaml . | nindent 4 }}
+   {{- end }}
+   name: cloudcore
+ spec:
+-  {{- if and (eq .Values.cloudCore.service.type "NodePort") ( not .Values.cloudCore.hostNetWork) }}
++  {{- if and (or (eq .Values.cloudCore.service.type "NodePort") (eq .Values.cloudCore.service.type "LoadBalancer")) (not .Values.cloudCore.hostNetWork) }}
+   type: {{ .Values.cloudCore.service.type }}
+   {{- else }}
+   type: ClusterIP

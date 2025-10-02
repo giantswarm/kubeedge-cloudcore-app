@@ -9,5 +9,9 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_d
 
 cd "${repo_dir}"
 
-mkdir ./helm/kubeedge-cloudcore/templates/hook-jobs
-cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/templates/hook-jobs/
+readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
+
+set -x
+git apply "${script_dir_rel}/_configmap_cloudcore.yaml.patch"
+
+{ set +x; } 2>/dev/null

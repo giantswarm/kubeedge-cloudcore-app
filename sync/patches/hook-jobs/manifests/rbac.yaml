@@ -7,7 +7,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+  name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
   labels:
     {{- include "labels.common" . | nindent 4 }}
   annotations:
@@ -20,5 +20,48 @@ roleRef:
   name: "cluster-admin"
 subjects:
   - kind: ServiceAccount
-    name: "{{- include "kubeEdgeHookServiceAccount" . }}"
+    name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
     namespace: "{{ .Release.Namespace }}"
+{{- if and (.Values.cloudCore.service.enable) }}
+---
+# This role and binding are used by the hook job which waits for
+# the cloudcore service to be assigned an IP and patches the configmap.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cloudcore-service-hook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    "helm.sh/hook-weight": "-5"
+rules:
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "patch", "update", "delete", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cloudcore-service-hook-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    "helm.sh/hook-weight": "-5"
+subjects:
+  - kind: ServiceAccount
+    name: "{{- include "kubeEdgeServiceHookServiceAccount" . }}"
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: cloudcore-service-hook
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

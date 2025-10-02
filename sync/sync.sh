@@ -16,5 +16,7 @@ vendir sync
 ./sync/patches/crds/patch.sh
 ./sync/patches/chart/patch.sh
 ./sync/patches/values/patch.sh
+./sync/patches/service/patch.sh
+./sync/patches/configmap/patch.sh
 ./sync/patches/helpers/patch.sh
 ./sync/patches/hook-jobs/patch.sh

@@ -22,8 +22,12 @@ application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantsw
 helm.sh/chart: {{ include "chart" . | quote }}
 {{- end -}}
 
-{{- define "kubeEdgeHookServiceAccount" }}
+{{- define "kubeEdgeCiliumHookServiceAccount" }}
 {{- include "resource.default.name" $ }}-update-cilium
+{{- end }}
+
+{{- define "kubeEdgeServiceHookServiceAccount" }}
+{{- include "resource.default.name" $ }}-update-values
 {{- end }}
 
 {{- define "securityContext.runAsUser" -}}
