@@ -2,7 +2,7 @@ diff --git a/helm/kubeedge-cloudcore/Chart.yaml b/helm/kubeedge-cloudcore/Chart.
 index 05c23b3..3e3f280 100644
 --- a/helm/kubeedge-cloudcore/Chart.yaml
 +++ b/helm/kubeedge-cloudcore/Chart.yaml
-@@ -1,7 +1,20 @@
+@@ -1,7 +1,21 @@
 -apiVersion: v1
 -name: cloudcore
 -version: 1.21.0
@@ -24,5 +24,6 @@ index 05c23b3..3e3f280 100644
 +    email: team-rocket@giantswarm.io
 +dependencies:
 +  - name: kubeedge-cloudcore-crds
++    version: PLACEHOLDER
  sources:
  - https://github.com/kubeedge/kubeedge

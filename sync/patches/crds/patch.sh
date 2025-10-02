@@ -14,6 +14,7 @@ cp ./vendor/kubeedge-cloudcore/manifests/charts/cloudcore/crds/* ./helm/kubeedge
 
 # update the crd Chart.yaml if the CRDs have changed
 CRDS_CHANGED=0
+PARENT_CHART_DIR="./helm/kubeedge-cloudcore"
 CHART_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds"
 CRDS_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates"
 
@@ -27,9 +28,11 @@ if git ls-files --others --exclude-standard -- "${CRDS_DIR}" | grep -q .; then
     CRDS_CHANGED=1
 fi
 
-# get the current version of the upstream cloudcore chart and update the crd chart version
+# get the upstream version of the cloudcore chart
+UPSTREAM_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
+
+# update the crd chart version
 if [[ $CRDS_CHANGED -eq 1 ]]; then
-    UPSTREAM_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
     sed -i -E "s/^(version: ).*/\1${UPSTREAM_VERSION}/" "${CHART_DIR}/Chart.yaml"
 
     # add annotation to ensure helm doesn't delete CRDs
@@ -38,3 +41,7 @@ if [[ $CRDS_CHANGED -eq 1 ]]; then
         yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
     done
 fi
+
+# replace the placeholder in the main chart's dependencies
+sed -i -E "s/PLACEHOLDER/${UPSTREAM_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"
+
