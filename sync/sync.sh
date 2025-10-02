@@ -20,3 +20,4 @@ vendir sync
 ./sync/patches/configmap/patch.sh
 ./sync/patches/helpers/patch.sh
 ./sync/patches/hook-jobs/patch.sh
+./sync/patches/policy-exceptions/patch.sh
