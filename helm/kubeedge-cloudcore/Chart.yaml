@@ -6,7 +6,7 @@ annotations:
   application.giantswarm.io/team: "rocket"
 description: The KubeEdge cloudcore component.
 home: https://github.com/giantswarm/kubeedge-cloudcore-app
-icon: https://github.com/kubeedge/kubeedge/blob/master/docs/images/kubeedge-logo-only.png
+icon: https://raw.githubusercontent.com/kubeedge/kubeedge/refs/heads/master/docs/images/kubeedge-logo-only.png
 keywords:
   - edge
   - iot
@@ -16,5 +16,6 @@ maintainers:
     email: team-rocket@giantswarm.io
 dependencies:
   - name: kubeedge-cloudcore-crds
+    version: 1.21.0
 sources:
 - https://github.com/kubeedge/kubeedge

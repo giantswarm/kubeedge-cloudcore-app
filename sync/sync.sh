@@ -13,7 +13,6 @@ vendir sync
 { set +x; } 2>/dev/null
 
 # patches
-./sync/patches/crds/patch.sh
 ./sync/patches/chart/patch.sh
 ./sync/patches/values/patch.sh
 ./sync/patches/service/patch.sh
@@ -22,3 +21,6 @@ vendir sync
 ./sync/patches/hook-jobs/patch.sh
 ./sync/patches/policy-exceptions/patch.sh
 ./sync/patches/readme/patch.sh
+./sync/patches/kube-linter/patch.sh
+# crds should always be last
+./sync/patches/crds/patch.sh

@@ -1,0 +1,15 @@
+diff --git a/helm/kubeedge-cloudcore/templates/_helpers.tpl b/helm/kubeedge-cloudcore/templates/_helpers.tpl
+index fd94bcc..29139e4 100644
+--- a/helm/kubeedge-cloudcore/templates/_helpers.tpl
++++ b/helm/kubeedge-cloudcore/templates/_helpers.tpl
+@@ -34,3 +34,10 @@ streamCA.crt: {{ $ca.Cert | b64enc }}
+ stream.crt: {{ $cert.Cert | b64enc }}
+ stream.key: {{ $cert.Key | b64enc }}
+ {{- end -}}
++
++{{/*
++This function exists purely to silence linting errors (the label is actually defined in _gs_helpers.tpl)
++*/}}
++{{- define "unused.labels" -}}
++application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
++{{- end -}}
