@@ -9,7 +9,7 @@ index 05c23b3..3e3f280 100644
 +apiVersion: v2
  appVersion: 1.21.0
 +name: kubeedge-cloudcore
-+version: 1.21.0
++version: 0.0.0
 +annotations:
 +  application.giantswarm.io/team: "rocket"
  description: The KubeEdge cloudcore component.
@@ -26,4 +26,5 @@ index 05c23b3..3e3f280 100644
 +  - name: kubeedge-cloudcore-crds
 +    version: PLACEHOLDER
  sources:
- - https://github.com/kubeedge/kubeedge
+-- https://github.com/kubeedge/kubeedge
++  - https://github.com/kubeedge/kubeedge
