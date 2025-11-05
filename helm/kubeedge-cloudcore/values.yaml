@@ -79,7 +79,7 @@ iptablesManager:
   image:
     repository: "kubeedge/iptables-manager"
     nftRepository: "kubeedge/iptables-manager-nft"
-    tag: "v1.21.0"
+    tag: "v1.22.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   securityContext:
