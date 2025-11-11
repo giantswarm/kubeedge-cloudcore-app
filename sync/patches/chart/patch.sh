@@ -12,9 +12,18 @@ cd "${repo_dir}"
 
 readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
-set -x
-git apply "${script_dir_rel}/_Chart.yaml.patch"
-{ set +x; } 2>/dev/null
+cp "${script_dir}"/manifests/Chart.yaml ./helm/kubeedge-cloudcore/
+
+# we need to set the appVersion field in Chart.yaml to match the
+# version being synced from upstream.
+
+# get the upstream sync version from vendir.yml
+UPSTREAM_SYNC_VERSION=$(yq -r .directories[0].contents[0].git.ref ./vendir.yml)
+# remove leading 'v' if present
+UPSTREAM_SYNC_VERSION="${UPSTREAM_SYNC_VERSION#v}"
+
+# set the app version in Chart.yaml
+sed -i -E "s/^appVersion.*$/appVersion: ${UPSTREAM_SYNC_VERSION}/" "${CHART_DIR}/Chart.yaml"
 
 # we need to reset the version field in Chart.yaml to match the
 # latest release of this repo. So we fetch it with jq and then

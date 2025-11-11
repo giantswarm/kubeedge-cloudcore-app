@@ -1,9 +1,9 @@
 apiVersion: v2
 # upstream version
-appVersion: 1.22.0
+appVersion: 0.0.0
 name: kubeedge-cloudcore
 # giantswarm chart version
-version: 0.1.0
+version: 0.0.0
 annotations:
   application.giantswarm.io/team: "rocket"
 description: The KubeEdge cloudcore component.
@@ -18,6 +18,6 @@ maintainers:
     email: team-rocket@giantswarm.io
 dependencies:
   - name: kubeedge-cloudcore-crds
-    version: 1.22.0
+    version: PLACEHOLDER
 sources:
   - https://github.com/kubeedge/kubeedge
