@@ -112,7 +112,7 @@ controllerManager:
   enable: false
   image:
     repository: "kubeedge/controller-manager"
-    tag: "v1.22.0"
+    tag: "v1.22.1"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   labels:
