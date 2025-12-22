@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: 1.22.1
 name: kubeedge-cloudcore
 # giantswarm chart version
-version: 0.1.0
+version: 0.2.0
 annotations:
   application.giantswarm.io/team: "rocket"
 description: The KubeEdge cloudcore component.
