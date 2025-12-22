@@ -1,0 +1,3 @@
+apiVersion: v2
+name: kubeedge-cloudcore-crds
+version: 1.22.0
