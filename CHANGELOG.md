@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-12-22
+
 ### Changed
 
 - Improved handling of Chart.yaml during version updates.
@@ -28,5 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Patch all CRDs to ensure they cannot be deleted by Helm.
 - Add CRD subchart as a dependency to satisfy the linter.
 
-[Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/releases/tag/v0.1.0
