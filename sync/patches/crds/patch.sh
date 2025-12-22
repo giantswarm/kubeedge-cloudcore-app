@@ -10,6 +10,7 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_d
 cd "${repo_dir}"
 
 cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/
+mkdir ./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates -p || true
 cp ./vendor/kubeedge-cloudcore/manifests/charts/cloudcore/crds/* ./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates/
 
 # update the crd Chart.yaml if the CRDs have changed

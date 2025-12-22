@@ -8,7 +8,7 @@ cloudCore:
   hostNetWork: false
   image:
     repository: "kubeedge/cloudcore"
-    tag: "v1.22.1"
+    tag: "v1.22.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   securityContext:
@@ -148,7 +148,7 @@ admission:
   certsSecretName: ""
   image:
     repository: "kubeedge/admission"
-    tag: "v1.22.1"
+    tag: "v1.22.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   labels:
