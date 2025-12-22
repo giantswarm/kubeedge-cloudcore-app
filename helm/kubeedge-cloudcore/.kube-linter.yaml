@@ -1,0 +1,10 @@
+checks:
+  exclude:
+    - "no-read-only-root-fs"
+    - "deprecated-service-account-field"
+    - "drop-net-raw-capability"
+    - "host-network"
+    - "non-existent-service-account"
+    - "run-as-non-root"
+    - "privilege-escalation-container"
+    - "privileged-container"

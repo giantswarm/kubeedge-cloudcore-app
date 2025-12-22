@@ -1,0 +1,67 @@
+# We have to use the cluster-admin role for the hook service account
+# because the rbac creation job needs elevated permissions in order
+# to create the necessary rbac. The rbac below and the associated
+# service account are always deleted after the job completes
+# (regardless of the job's success). This is to ensure that the service
+# account and the elevated rbac are not left in the cluster.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+    "helm.sh/hook-weight": "0"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: "cluster-admin"
+subjects:
+  - kind: ServiceAccount
+    name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
+    namespace: "{{ .Release.Namespace }}"
+{{- if and (.Values.cloudCore.service.enable) }}
+---
+# This role and binding are used by the hook job which waits for
+# the cloudcore service to be assigned an IP and patches the configmap.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cloudcore-service-hook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    "helm.sh/hook-weight": "-5"
+rules:
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "patch", "update", "delete", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cloudcore-service-hook-binding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    "helm.sh/hook-weight": "-5"
+subjects:
+  - kind: ServiceAccount
+    name: "{{- include "kubeEdgeServiceHookServiceAccount" . }}"
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: cloudcore-service-hook
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
