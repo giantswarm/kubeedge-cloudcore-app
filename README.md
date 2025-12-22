@@ -29,6 +29,23 @@ affinity:
 
 ```
 
+## Updating
+
+> [!WARNING]
+> DO NOT merge Renovate PRs without following the instructions below.
+>
+> Failure to do so will not update the chart itself.
+
+### Renovate updates
+
+1. Check out the PR created by Renovate.
+2. Run `sync/sync.sh` which will retrieve the upstream chart, customize it for Giant Swarm, and update the chart files.
+
+### Manual updates
+
+1. Update the `tag` field in [`vendir.yml`](vendir.yml) to the desired upstream version.
+2. Run `sync/sync.sh` which will retrieve the upstream chart, customize it for Giant Swarm, and update the chart files.
+
 ## Credit
 
 - https://github.com/kubeedge/kubeedge

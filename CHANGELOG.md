@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improved handling of Chart.yaml during version updates.
 - Update to upstream chart v1.22.0.
+- Improve Renovate config to disable unnecessary updates.
 
 ## [0.1.0] - 2025-10-03
 
