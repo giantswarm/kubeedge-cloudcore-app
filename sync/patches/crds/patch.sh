@@ -44,5 +44,5 @@ if [[ $CRDS_CHANGED -eq 1 ]]; then
 fi
 
 # replace the placeholder in the main chart's dependencies
-sed -i -E "s/PLACEHOLDER/${UPSTREAM_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"
+sed -i -E "s/CRD_VERSION_PLACEHOLDER/${UPSTREAM_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"
 

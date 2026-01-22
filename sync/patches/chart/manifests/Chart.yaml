@@ -22,6 +22,6 @@ maintainers:
     email: team-rocket@giantswarm.io
 dependencies:
   - name: kubeedge-cloudcore-crds
-    version: PLACEHOLDER
+    version: CRD_VERSION_PLACEHOLDER
 sources:
   - https://github.com/kubeedge/kubeedge
