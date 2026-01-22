@@ -8,7 +8,7 @@ annotations:
   application.giantswarm.io/team: "rocket"
 description: The KubeEdge cloudcore component.
 home: https://github.com/giantswarm/kubeedge-cloudcore-app
-icon: https://raw.githubusercontent.com/kubeedge/kubeedge/refs/heads/master/docs/images/kubeedge-logo-only.png
+icon: https://s.giantswarm.io/app-icons/kubeedge/1/light.png
 keywords:
   - edge
   - iot
