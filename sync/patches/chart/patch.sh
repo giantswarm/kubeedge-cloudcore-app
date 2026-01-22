@@ -23,7 +23,7 @@ UPSTREAM_SYNC_VERSION=$(yq -r .directories[0].contents[0].git.ref ./vendir.yml)
 UPSTREAM_SYNC_VERSION="${UPSTREAM_SYNC_VERSION#v}"
 
 # set the app version in Chart.yaml
-sed -i -E "s/^appVersion.*$/appVersion: ${UPSTREAM_SYNC_VERSION}/" "${CHART_DIR}/Chart.yaml"
+sed -i -E "s/UPSTREAM_VERSION_PLACEHOLDER/${UPSTREAM_SYNC_VERSION}/" "${CHART_DIR}/Chart.yaml"
 
 # we need to reset the version field in Chart.yaml to match the
 # latest release of this repo. So we fetch it with jq and then
@@ -34,4 +34,4 @@ LATEST_VERSION=$(curl -s https://api.github.com/repos/giantswarm/kubeedge-cloudc
 LATEST_VERSION="${LATEST_VERSION#v}"
 
 # set the app version in Chart.yaml
-sed -i -E "s/^version.*$/version: ${LATEST_VERSION}/" "${CHART_DIR}/Chart.yaml"
+sed -i -E "s/APP_VERSION_PLACEHOLDER/${LATEST_VERSION}/" "${CHART_DIR}/Chart.yaml"
