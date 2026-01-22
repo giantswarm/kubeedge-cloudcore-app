@@ -19,6 +19,12 @@ PARENT_CHART_DIR="./helm/kubeedge-cloudcore"
 CHART_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds"
 CRDS_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates"
 
+# add annotation to ensure helm doesn't delete CRDs
+for crd in "${CRDS_DIR}"/*; do
+    # this command ensures that the annotations field exists and then adds the helm annotation. it does not remove any existing annotations.
+    yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
+done
+
 # check for updated CRDs
 if ! git diff --quiet HEAD -- "${CRDS_DIR}"; then
     CRDS_CHANGED=1
@@ -29,20 +35,16 @@ if git ls-files --others --exclude-standard -- "${CRDS_DIR}" | grep -q .; then
     CRDS_CHANGED=1
 fi
 
-# get the upstream version of the cloudcore chart
-UPSTREAM_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
-
-# update the crd chart version
 if [[ $CRDS_CHANGED -eq 1 ]]; then
-    sed -i -E "s/^(version: ).*/\1${UPSTREAM_VERSION}/" "${CHART_DIR}/Chart.yaml"
-
-    # add annotation to ensure helm doesn't delete CRDs
-    for crd in "${CRDS_DIR}"/*; do
-        # this command ensures that the annotations field exists and then adds the helm annotation. it does not remove any existing annotations.
-        yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
-    done
+    # CRDs have changed in this release, set the CRD chart version to match the upstream version we're syncing against
+    CRD_CHART_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
+else
+    # no change to CRDs, ensure the CRD chart version is not bumped by setting it to the current published version 
+    CRD_CHART_VERSION=$(curl --silent https://raw.githubusercontent.com/giantswarm/kubeedge-cloudcore-app/refs/heads/main/helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/Chart.yaml | yq .version -r)
 fi
 
-# replace the placeholder in the main chart's dependencies
-sed -i -E "s/PLACEHOLDER/${UPSTREAM_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"
+# update the crd chart version
+sed -i -E "s/^(version: ).*/\1${CRD_CHART_VERSION}/" "${CHART_DIR}/Chart.yaml"
 
+# replace the placeholder in the main chart's dependencies
+sed -i -E "s/CRD_VERSION_PLACEHOLDER/${CRD_CHART_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"

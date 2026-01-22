@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - 2025-12-22
+### Added
+
+- Added additional annotations to Chart.yaml for better integration with Backstage.
+
+### Changed
+
+- Improved chart creation by improving patching logic.
+
+# [0.2.0] - 2025-12-22
 
 ### Changed
 

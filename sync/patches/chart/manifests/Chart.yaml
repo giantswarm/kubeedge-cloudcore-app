@@ -1,14 +1,18 @@
 apiVersion: v2
 # upstream version
-appVersion: 0.0.0
+appVersion: UPSTREAM_VERSION_PLACEHOLDER
 name: kubeedge-cloudcore
 # giantswarm chart version
-version: 0.0.0
+version: APP_VERSION_PLACEHOLDER
 annotations:
-  application.giantswarm.io/team: "rocket"
+  io.giantswarm.application.audience: "all"
+  io.giantswarm.application.managed: "true"
+  io.giantswarm.application.team: "rocket"
+  io.giantswarm.application.upstream-chart-url: "https://github.com/kubeedge/kubeedge/tree/master/manifests/charts/cloudcore"
+  io.giantswarm.application.upstream-chart-version: "UPSTREAM_VERSION_PLACEHOLDER"
 description: The KubeEdge cloudcore component.
 home: https://github.com/giantswarm/kubeedge-cloudcore-app
-icon: https://raw.githubusercontent.com/kubeedge/kubeedge/refs/heads/master/docs/images/kubeedge-logo-only.png
+icon: https://s.giantswarm.io/app-icons/kubeedge/1/light.png
 keywords:
   - edge
   - iot
@@ -18,6 +22,6 @@ maintainers:
     email: team-rocket@giantswarm.io
 dependencies:
   - name: kubeedge-cloudcore-crds
-    version: PLACEHOLDER
+    version: CRD_VERSION_PLACEHOLDER
 sources:
   - https://github.com/kubeedge/kubeedge
