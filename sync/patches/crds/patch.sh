@@ -19,6 +19,12 @@ PARENT_CHART_DIR="./helm/kubeedge-cloudcore"
 CHART_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds"
 CRDS_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates"
 
+# add annotation to ensure helm doesn't delete CRDs
+for crd in "${CRDS_DIR}"/*; do
+    # this command ensures that the annotations field exists and then adds the helm annotation. it does not remove any existing annotations.
+    yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
+done
+
 # check for updated CRDs
 if ! git diff --quiet HEAD -- "${CRDS_DIR}"; then
     CRDS_CHANGED=1
@@ -35,12 +41,6 @@ UPSTREAM_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/c
 # update the crd chart version
 if [[ $CRDS_CHANGED -eq 1 ]]; then
     sed -i -E "s/^(version: ).*/\1${UPSTREAM_VERSION}/" "${CHART_DIR}/Chart.yaml"
-
-    # add annotation to ensure helm doesn't delete CRDs
-    for crd in "${CRDS_DIR}"/*; do
-        # this command ensures that the annotations field exists and then adds the helm annotation. it does not remove any existing annotations.
-        yq eval '.metadata.annotations = (.metadata.annotations // {} ) | .metadata.annotations += {"helm.sh/resource-policy": "keep"}' -i "${crd}"
-    done
 fi
 
 # replace the placeholder in the main chart's dependencies
