@@ -1,14 +1,14 @@
 # Default values for kubeedge.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-appVersion: "1.22.0"
+appVersion: "1.23.0"
 
 cloudCore:
   replicaCount: 1
   hostNetWork: false
   image:
     repository: "kubeedge/cloudcore"
-    tag: "v1.22.0"
+    tag: "v1.23.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   securityContext:
@@ -79,7 +79,7 @@ iptablesManager:
   image:
     repository: "kubeedge/iptables-manager"
     nftRepository: "kubeedge/iptables-manager-nft"
-    tag: "v1.22.0"
+    tag: "v1.23.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   securityContext:
@@ -112,7 +112,7 @@ controllerManager:
   enable: false
   image:
     repository: "kubeedge/controller-manager"
-    tag: "v1.22.0"
+    tag: "v1.23.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   labels:
@@ -148,13 +148,13 @@ admission:
   certsSecretName: ""
   image:
     repository: "kubeedge/admission"
-    tag: "v1.22.0"
+    tag: "v1.23.0"
     pullPolicy: "IfNotPresent"
     pullSecrets: []
   labels:
     k8s-app: kubeedge-admission
     kubeedge: kubeedge-admission
-  annoations: {}
+  annotations: {}
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:

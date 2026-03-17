@@ -832,7 +832,7 @@
             "kubeedge"
           ]
         },
-        "annoations": {
+        "annotations": {
           "type": "object"
         },
         "affinity": {
@@ -945,7 +945,7 @@
         "certsSecretName",
         "image",
         "labels",
-        "annoations",
+        "annotations",
         "affinity",
         "tolerations",
         "nodeSelector",

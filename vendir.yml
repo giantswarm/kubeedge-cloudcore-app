@@ -6,8 +6,9 @@ directories:
       - path: kubeedge-cloudcore
         git:
           depth: 1
+          skipInitSubmodules: true
           url: https://github.com/kubeedge/kubeedge
-          ref: "v1.22.1"
+          ref: "v1.23.0"
         includePaths:
           - manifests/charts/cloudcore/**/*
   - path: helm/kubeedge-cloudcore
