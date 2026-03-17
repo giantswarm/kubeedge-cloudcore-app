@@ -1,6 +1,6 @@
 apiVersion: v2
 # upstream version
-appVersion: 1.22.1
+appVersion: 1.23.0
 name: kubeedge-cloudcore
 # giantswarm chart version
 version: 0.3.0
@@ -9,7 +9,7 @@ annotations:
   io.giantswarm.application.managed: "true"
   io.giantswarm.application.team: "rocket"
   io.giantswarm.application.upstream-chart-url: "https://github.com/kubeedge/kubeedge/tree/master/manifests/charts/cloudcore"
-  io.giantswarm.application.upstream-chart-version: "1.22.1"
+  io.giantswarm.application.upstream-chart-version: "1.23.0"
 description: The KubeEdge cloudcore component.
 home: https://github.com/giantswarm/kubeedge-cloudcore-app
 icon: https://s.giantswarm.io/app-icons/kubeedge/1/light.png
@@ -22,6 +22,6 @@ maintainers:
     email: team-rocket@giantswarm.io
 dependencies:
   - name: kubeedge-cloudcore-crds
-    version: 1.22.0
+    version: 1.23.0
 sources:
   - https://github.com/kubeedge/kubeedge
