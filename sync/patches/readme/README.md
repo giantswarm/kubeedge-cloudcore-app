@@ -107,7 +107,7 @@ Properties within the `.admission` top-level object
 | `admission.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*]` |**None**|**Type:** `object`<br/>|
 | `admission.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key` |**None**|**Type:** `string`<br/>|
 | `admission.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator` |**None**|**Type:** `string`<br/>|
-| `admission.annoations` |**None**|**Type:** `object`<br/>|
+| `admission.annotations` |**None**|**Type:** `object`<br/>|
 | `admission.certsSecretName` |**None**|**Type:** `string`<br/>|
 | `admission.enable` |**None**|**Type:** `boolean`<br/>|
 | `admission.image` |**None**|**Type:** `object`<br/>|
