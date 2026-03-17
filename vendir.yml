@@ -6,6 +6,7 @@ directories:
       - path: kubeedge-cloudcore
         git:
           depth: 1
+          skipInitSubmodules: true
           url: https://github.com/kubeedge/kubeedge
           ref: "v1.23.0"
         includePaths:
