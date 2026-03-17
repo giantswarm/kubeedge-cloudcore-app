@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: 1.23.0
 name: kubeedge-cloudcore
 # giantswarm chart version
-version: 0.3.0
+version: 0.4.0
 annotations:
   io.giantswarm.application.audience: "all"
   io.giantswarm.application.managed: "true"
