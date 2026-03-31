@@ -1,3 +1,4 @@
+{{- if .Values.cni.cilium.enabled }}
 # This job patches Cilium's RBAC to allow kubeedge's cloudcore to
 # manage Cilium on the edge nodes.
 #
@@ -100,3 +101,4 @@ spec:
                 echo "[ERROR] Failed to update retrieved cilium clusterrolebinding with jq."
                 exit 1
               fi
+{{- end }}

@@ -23,8 +23,12 @@ index 41767b998..6e3b8c2aa 100644
 -    type: "NodePort"
 +    type: "LoadBalancer"
      cloudhubNodePort: "30000"
-@@ -201 +200,6 @@ mosquitto:
+@@ -201 +200,10 @@ mosquitto:
        memory: 50Mi
++
++cni:
++  cilium:
++    enabled: true
 +
 +kubectlImage:
 +  name: giantswarm/kubectl

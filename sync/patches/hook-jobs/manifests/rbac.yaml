@@ -4,6 +4,7 @@
 # service account are always deleted after the job completes
 # (regardless of the job's success). This is to ensure that the service
 # account and the elevated rbac are not left in the cluster.
+{{- if .Values.cni.cilium.enabled }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -22,6 +23,7 @@ subjects:
   - kind: ServiceAccount
     name: "{{- include "kubeEdgeCiliumHookServiceAccount" . }}"
     namespace: "{{ .Release.Namespace }}"
+{{- end }}
 {{- if and (.Values.cloudCore.service.enable) }}
 ---
 # This role and binding are used by the hook job which waits for

@@ -6,6 +6,8 @@
 
 ## Configuring
 
+The following applies when `.cni.cilium.enabled: true` is set in `values.yaml`. This is the default value.
+
 In order to schedule Cilium agent pods correctly, we need to stop them from running on KubeEdge nodes. A separate DaemonSet will be created automatically for any edge nodes. To do this, add the following to the Cilium chart's values:
 
 ### values.yaml
