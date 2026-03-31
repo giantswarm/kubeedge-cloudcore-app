@@ -1,3 +1,4 @@
+{{- if .Values.cni.cilium.enabled }}
 # This job creates a cilium-agent daemonset which only runs on edge nodes.
 # It is a modified copy of the existing cilium agent daemonset.
 #
@@ -89,3 +90,4 @@ spec:
                 echo "[ERROR] Failed to patch cilium-kubeedge daemonset."
                 exit 1
               fi
+{{- end }}
