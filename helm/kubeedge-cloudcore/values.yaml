@@ -199,6 +199,10 @@ mosquitto:
       cpu: 100m
       memory: 50Mi
 
+cni:
+  cilium:
+    enabled: true
+
 kubectlImage:
   name: giantswarm/kubectl
   registry: gsoci.azurecr.io

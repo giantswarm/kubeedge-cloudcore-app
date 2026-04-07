@@ -1,5 +1,3 @@
-
-
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
@@ -578,6 +576,22 @@
         "nodeSelector",
         "resources"
       ]
+    },
+    "cni": {
+      "properties": {
+        "cilium": {
+          "properties": {
+            "enabled": {
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "title": "cilium",
+          "type": "object"
+        }
+      },
+      "title": "cni",
+      "type": "object"
     },
     "controllerManager": {
       "type": "object",
