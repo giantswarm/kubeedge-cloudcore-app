@@ -34,10 +34,3 @@ streamCA.crt: {{ $ca.Cert | b64enc }}
 stream.crt: {{ $cert.Cert | b64enc }}
 stream.key: {{ $cert.Key | b64enc }}
 {{- end -}}
-
-{{/*
-This function exists purely to silence linting errors (the label is actually defined in _gs_helpers.tpl)
-*/}}
-{{- define "unused.labels" -}}
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-{{- end -}}
