@@ -4,96 +4,7 @@ This page lists all available configuration options, based on the [configuration
 
 <!-- DOCS_START -->
 
-### 
-Properties within the `.iptablesManager` top-level object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `iptablesManager.affinity` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.affinity.nodeAffinity` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms` |**None**|**Type:** `array`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*]` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions` |**None**|**Type:** `array`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*]` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.annotations` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.enable` |**None**|**Type:** `boolean`<br/>|
-| `iptablesManager.framework` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.hostNetWork` |**None**|**Type:** `boolean`<br/>|
-| `iptablesManager.image` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.image.nftRepository` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.image.pullPolicy` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.image.pullSecrets` |**None**|**Type:** `array`<br/>|
-| `iptablesManager.image.pullSecrets[*]` |**None**||
-| `iptablesManager.image.repository` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.image.tag` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.labels` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.labels.k8s-app` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.labels.kubeedge` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.mode` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.nodeSelector` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.resources` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.resources.limits` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.resources.limits.cpu` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.resources.limits.memory` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.resources.requests` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.resources.requests.cpu` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.resources.requests.memory` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.securityContext` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.securityContext.capabilities` |**None**|**Type:** `object`<br/>|
-| `iptablesManager.securityContext.capabilities.add` |**None**|**Type:** `array`<br/>|
-| `iptablesManager.securityContext.capabilities.add[*]` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.securityContext.capabilities.add[*]` |**None**|**Type:** `string`<br/>|
-| `iptablesManager.tolerations` |**None**|**Type:** `array`<br/>|
-| `iptablesManager.tolerations[*]` |**None**||
-
-### 
-Properties within the `.kubectlImage` top-level object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `kubectlImage.name` |**None**|**Type:** `string`<br/>|
-| `kubectlImage.registry` |**None**|**Type:** `string`<br/>|
-| `kubectlImage.tag` |**None**|**Type:** `string`<br/>|
-
-### 
-Properties within the `.mosquitto` top-level object
-
-| **Property** | **Description** | **More Details** |
-| :----------- | :-------------- | :--------------- |
-| `mosquitto.affinity` |**None**|**Type:** `object`<br/>|
-| `mosquitto.affinity.nodeAffinity` |**None**|**Type:** `object`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution` |**None**|**Type:** `object`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms` |**None**|**Type:** `array`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*]` |**None**|**Type:** `object`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions` |**None**|**Type:** `array`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*]` |**None**|**Type:** `object`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key` |**None**|**Type:** `string`<br/>|
-| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator` |**None**|**Type:** `string`<br/>|
-| `mosquitto.annotations` |**None**|**Type:** `object`<br/>|
-| `mosquitto.enable` |**None**|**Type:** `boolean`<br/>|
-| `mosquitto.image` |**None**|**Type:** `object`<br/>|
-| `mosquitto.image.pullPolicy` |**None**|**Type:** `string`<br/>|
-| `mosquitto.image.pullSecrets` |**None**|**Type:** `array`<br/>|
-| `mosquitto.image.pullSecrets[*]` |**None**||
-| `mosquitto.image.repository` |**None**|**Type:** `string`<br/>|
-| `mosquitto.image.tag` |**None**|**Type:** `string`<br/>|
-| `mosquitto.labels` |**None**|**Type:** `object`<br/>|
-| `mosquitto.labels.k8s-app` |**None**|**Type:** `string`<br/>|
-| `mosquitto.labels.kubeedge` |**None**|**Type:** `string`<br/>|
-| `mosquitto.resources` |**None**|**Type:** `object`<br/>|
-| `mosquitto.resources.limits` |**None**|**Type:** `object`<br/>|
-| `mosquitto.resources.limits.cpu` |**None**|**Type:** `string`<br/>|
-| `mosquitto.resources.limits.memory` |**None**|**Type:** `string`<br/>|
-| `mosquitto.resources.requests` |**None**|**Type:** `object`<br/>|
-| `mosquitto.resources.requests.cpu` |**None**|**Type:** `string`<br/>|
-| `mosquitto.resources.requests.memory` |**None**|**Type:** `string`<br/>|
-| `mosquitto.tolerations` |**None**|**Type:** `array`<br/>|
-| `mosquitto.tolerations[*]` |**None**||
-
-### 
+### admission
 Properties within the `.admission` top-level object
 
 | **Property** | **Description** | **More Details** |
@@ -131,7 +42,7 @@ Properties within the `.admission` top-level object
 | `admission.tolerations` |**None**|**Type:** `array`<br/>|
 | `admission.tolerations[*]` |**None**||
 
-### 
+### cloudCore
 Properties within the `.cloudCore` top-level object
 
 | **Property** | **Description** | **More Details** |
@@ -206,7 +117,15 @@ Properties within the `.cloudCore` top-level object
 | `cloudCore.tolerations` |**None**|**Type:** `array`<br/>|
 | `cloudCore.tolerations[*]` |**None**||
 
-### 
+### cni
+Properties within the `.cni` top-level object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `cni.cilium` | **cilium**|**Type:** `object`<br/>|
+| `cni.cilium.enabled` | **enabled**|**Type:** `boolean`<br/>|
+
+### controllerManager
 Properties within the `.controllerManager` top-level object
 
 | **Property** | **Description** | **More Details** |
@@ -249,12 +168,100 @@ Properties within the `.controllerManager` top-level object
 | `controllerManager.tolerations[*].operator` |**None**|**Type:** `string`<br/>|
 | `controllerManager.tolerations[*].operator` |**None**|**Type:** `string`<br/>|
 
+### iptablesManager
+Properties within the `.iptablesManager` top-level object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `iptablesManager.affinity` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.affinity.nodeAffinity` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms` |**None**|**Type:** `array`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*]` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions` |**None**|**Type:** `array`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*]` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.annotations` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.enable` |**None**|**Type:** `boolean`<br/>|
+| `iptablesManager.framework` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.hostNetWork` |**None**|**Type:** `boolean`<br/>|
+| `iptablesManager.image` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.image.nftRepository` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.image.pullPolicy` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.image.pullSecrets` |**None**|**Type:** `array`<br/>|
+| `iptablesManager.image.pullSecrets[*]` |**None**||
+| `iptablesManager.image.repository` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.image.tag` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.labels` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.labels.k8s-app` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.labels.kubeedge` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.mode` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.nodeSelector` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.resources` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.resources.limits` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.resources.limits.cpu` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.resources.limits.memory` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.resources.requests` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.resources.requests.cpu` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.resources.requests.memory` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.securityContext` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.securityContext.capabilities` |**None**|**Type:** `object`<br/>|
+| `iptablesManager.securityContext.capabilities.add` |**None**|**Type:** `array`<br/>|
+| `iptablesManager.securityContext.capabilities.add[*]` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.securityContext.capabilities.add[*]` |**None**|**Type:** `string`<br/>|
+| `iptablesManager.tolerations` |**None**|**Type:** `array`<br/>|
+| `iptablesManager.tolerations[*]` |**None**||
+
+### kubectlImage
+Properties within the `.kubectlImage` top-level object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `kubectlImage.name` |**None**|**Type:** `string`<br/>|
+| `kubectlImage.registry` |**None**|**Type:** `string`<br/>|
+| `kubectlImage.tag` |**None**|**Type:** `string`<br/>|
+
+### mosquitto
+Properties within the `.mosquitto` top-level object
+
+| **Property** | **Description** | **More Details** |
+| :----------- | :-------------- | :--------------- |
+| `mosquitto.affinity` |**None**|**Type:** `object`<br/>|
+| `mosquitto.affinity.nodeAffinity` |**None**|**Type:** `object`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution` |**None**|**Type:** `object`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms` |**None**|**Type:** `array`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*]` |**None**|**Type:** `object`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions` |**None**|**Type:** `array`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*]` |**None**|**Type:** `object`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key` |**None**|**Type:** `string`<br/>|
+| `mosquitto.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator` |**None**|**Type:** `string`<br/>|
+| `mosquitto.annotations` |**None**|**Type:** `object`<br/>|
+| `mosquitto.enable` |**None**|**Type:** `boolean`<br/>|
+| `mosquitto.image` |**None**|**Type:** `object`<br/>|
+| `mosquitto.image.pullPolicy` |**None**|**Type:** `string`<br/>|
+| `mosquitto.image.pullSecrets` |**None**|**Type:** `array`<br/>|
+| `mosquitto.image.pullSecrets[*]` |**None**||
+| `mosquitto.image.repository` |**None**|**Type:** `string`<br/>|
+| `mosquitto.image.tag` |**None**|**Type:** `string`<br/>|
+| `mosquitto.labels` |**None**|**Type:** `object`<br/>|
+| `mosquitto.labels.k8s-app` |**None**|**Type:** `string`<br/>|
+| `mosquitto.labels.kubeedge` |**None**|**Type:** `string`<br/>|
+| `mosquitto.resources` |**None**|**Type:** `object`<br/>|
+| `mosquitto.resources.limits` |**None**|**Type:** `object`<br/>|
+| `mosquitto.resources.limits.cpu` |**None**|**Type:** `string`<br/>|
+| `mosquitto.resources.limits.memory` |**None**|**Type:** `string`<br/>|
+| `mosquitto.resources.requests` |**None**|**Type:** `object`<br/>|
+| `mosquitto.resources.requests.cpu` |**None**|**Type:** `string`<br/>|
+| `mosquitto.resources.requests.memory` |**None**|**Type:** `string`<br/>|
+| `mosquitto.tolerations` |**None**|**Type:** `array`<br/>|
+| `mosquitto.tolerations[*]` |**None**||
+
 ### Other
 
 | **Property** | **Description** | **More Details** |
 | :----------- | :-------------- | :--------------- |
 | `appVersion` |**None**|**Type:** `string`<br/>|
-
 
 
 <!-- DOCS_END -->
