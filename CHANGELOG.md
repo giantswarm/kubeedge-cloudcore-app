@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - chore(deps): update vendir https://github.com/kubeedge/kubeedge to v1.23.1
 
+### Fixed
+
+- Fix CRD subchart version calculation.
+
 ## [0.5.0] - 2026-04-07
 
 ### Changed

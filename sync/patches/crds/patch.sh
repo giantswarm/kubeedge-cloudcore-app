@@ -37,9 +37,11 @@ fi
 
 if [[ $CRDS_CHANGED -eq 1 ]]; then
     # CRDs have changed in this release, set the CRD chart version to match the upstream version we're syncing against
-    CRD_CHART_VERSION=$(grep '^version:' vendor/kubeedge-cloudcore/manifests/charts/cloudcore/Chart.yaml | awk '{print $2}')
+    CRD_CHART_VERSION=$(yq -r .directories[0].contents[0].git.ref "${REPO_DIR}"/vendir.yml)
+    # remove leading 'v' if present
+    CRD_CHART_VERSION="${CRD_CHART_VERSION#v}"
 else
-    # no change to CRDs, ensure the CRD chart version is not bumped by setting it to the current published version 
+    # no change to CRDs, ensure the CRD chart version is not bumped by setting it to the current published version
     CRD_CHART_VERSION=$(curl --silent https://raw.githubusercontent.com/giantswarm/kubeedge-cloudcore-app/refs/heads/main/helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/Chart.yaml | yq .version -r)
 fi
 
