@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - chore(deps): update vendir https://github.com/kubeedge/kubeedge to v1.23.1
+- Update architect to v10.10.0 (giantswarm/kubeedge-cloudcore-app#90)
 
 ### Fixed
 
