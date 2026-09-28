@@ -56,6 +56,10 @@ spec:
                       - --config-dir=/tmp/cilium/config-map
                       - --k8s-api-server=127.0.0.1:10550
                       - --auto-create-cilium-node-resource=true
+                      # The KubeEdge metaServer does not send the initial-events-end bookmark.
+                      env:
+                      - name: KUBE_FEATURE_WatchListClient
+                        value: 'false'
                       name: cilium-agent
                     initContainers:
                     - args:
