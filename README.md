@@ -31,6 +31,45 @@ affinity:
 
 ```
 
+## Connecting an edge node
+
+The edge node must have a container runtime (for example containerd) and [`keadm`](https://kubeedge.io/docs/setup/install-with-keadm) with the same version as cloudcore.
+
+### Get the cloudcore address
+
+The chart creates the `cloudcore` Service of type `LoadBalancer` in the release namespace. The edge node must be able to reach its external IP on ports `10000` (cloudhub) and `10002` (certificates).
+
+```sh
+kubectl -n <release-namespace> get svc cloudcore -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+```
+
+### Get the token
+
+Cloudcore creates the join token and keeps it in the Secret `tokensecret` in the `kubeedge` namespace. This namespace does not change with the release namespace. The token has the CA hash and a signed token. Cloudcore replaces the token every 12 hours (`cloudHub.tokenRefreshDuration`), so get a new token immediately before you join a node. The token is necessary only for the join. After the join, the node uses its certificate.
+
+```sh
+kubectl -n kubeedge get secret tokensecret -o jsonpath='{.data.tokendata}' | base64 -d
+```
+
+Or, with `keadm` and a kubeconfig for the workload cluster:
+
+```sh
+keadm gettoken --kube-config <path-to-kubeconfig>
+```
+
+### Join the node
+
+Run this on the edge node:
+
+```sh
+keadm join \
+  --cloudcore-ipport=<cloudcore-ip>:10000 \
+  --token=<token> \
+  --kubeedge-version=v1.23.0
+```
+
+To make sure that the node is connected, do `kubectl get nodes`. The node has the label `node-role.kubernetes.io/edge`.
+
 ## Updating
 
 > [!WARNING]
