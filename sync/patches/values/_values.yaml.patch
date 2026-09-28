@@ -23,7 +23,16 @@ index 41767b998..6e3b8c2aa 100644
 -    type: "NodePort"
 +    type: "LoadBalancer"
      cloudhubNodePort: "30000"
-@@ -201 +200,10 @@ mosquitto:
+@@ -101,3 +100,7 @@ iptablesManager:
+             operator: DoesNotExist
+-  tolerations: []
++  # Run on control plane nodes too, so that kube-apiserver can reach edge nodes.
++  tolerations:
++    - key: node-role.kubernetes.io/control-plane
++      operator: Exists
++      effect: NoSchedule
+   nodeSelector: {}
+@@ -201 +204,10 @@ mosquitto:
        memory: 50Mi
 +
 +cni:
