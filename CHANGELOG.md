@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix CRD subchart version calculation.
+- Replace `+` in the `app.kubernetes.io/version` label so that it is a valid label value.
 
 ## [0.5.0] - 2026-04-07
 
