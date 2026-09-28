@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Target the release namespace in the policy exceptions instead of the hardcoded `kubeedge` namespace.
+
 ## [0.6.0] - 2026-09-28
 
 ### Added

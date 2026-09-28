@@ -19,7 +19,7 @@ spec:
     names:
     - cloud-iptables-manager*
     namespaces:
-    - kubeedge
+    - {{ .Release.Namespace }}
 ---
 apiVersion: policy.giantswarm.io/v1alpha1
 kind: PolicyException
@@ -42,7 +42,7 @@ spec:
     names:
     - edge-eclipse-mosquitto*
     namespaces:
-    - kubeedge
+    - {{ .Release.Namespace }}
 ---
 apiVersion: policy.giantswarm.io/v1alpha1
 kind: PolicyException
@@ -65,5 +65,5 @@ spec:
     names:
     - cloudcore*
     namespaces:
-    - kubeedge
+    - {{ .Release.Namespace }}
 {{- end }}
