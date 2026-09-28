@@ -98,7 +98,11 @@ iptablesManager:
         - matchExpressions:
           - key: node-role.kubernetes.io/edge
             operator: DoesNotExist
-  tolerations: []
+  # Run on control plane nodes too, so that kube-apiserver can reach edge nodes.
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
   nodeSelector: {}
   resources:
     limits:
