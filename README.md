@@ -52,43 +52,29 @@ affinity:
 
 Note that `keadm` can change across versions and cilium support _matures_ over time. So it is best to check this procedure against upstream release notes when deploying a new version.
 
-### Edge node prerequisites setup
+The edge node must reach the external IP of the `cloudcore` Service on ports `10000` (cloudhub) and `10002` (certificates). It does not need access to the Kubernetes API.
 
-SSH into the edge node and run the script to install the prerequisites. Change the value of `$CPU_ARCH` and tool versions if necessary.
+### 1. Install the prerequisites
 
-Run this on the edge node:
-
-```sh
-./edgecore/edgecore_prerequisites.sh
-```
-
-### Get the cloudcore address and token
-
-The chart creates:
-
-- `cloudcore` Service of type `LoadBalancer` in the release namespace. The edge node must be able to reach its external IP on ports `10000` (cloudhub) and `10002` (certificates).
-- Join token and keeps it in the Secret `tokensecret` in the `kubeedge` namespace. The token has the CA hash and a signed token. Cloudcore replaces the token every 12 hours (`cloudHub.tokenRefreshDuration`), so get a new token immediately before you join a node. The token is necessary only for the join. After the join, the node uses its certificate.
-
-Run this with the kubeconfig of the cluster where cloudcore runs:
+Run this on the edge node. It installs containerd, runc, the CNI plugins and crictl.
 
 ```sh
-IFS=":" read -r image tag <<< "$(kubectl get pod -n kubeedge -o jsonpath='{.items[0].spec.containers[0].image}' -l kubeedge=cloudcore)"
-CLOUDCORE_VERSION=$tag
-CLOUDCORE_IP=$(kubectl get svc cloudcore -o jsonpath='{.status.loadBalancer.ingress[0].ip}' -n kubeedge)
-CLOUDCORE_JOIN_TOKEN=$(kubectl -n kubeedge get secret tokensecret -o jsonpath='{.data.tokendata}' | base64 -d)
+curl -sfL https://raw.githubusercontent.com/giantswarm/kubeedge-cloudcore-app/main/edgecore/edgecore_prerequisites.sh | sudo bash
 ```
 
-### Join the node
+### 2. Get the join command
 
-Run this on the edge node:
+Run this with the workload cluster kubeconfig. It prints the command for step 3. Set `NAMESPACE` if cloudcore does not run in `kubeedge`.
 
 ```sh
-export CLOUDCORE_VERSION=<$CLOUDCORE_VERSION from previous run>
-export CLOUDCORE_IP=<$CLOUDCORE_IP from previous run>
-export CLOUDCORE_JOIN_TOKEN=<$CLOUDCORE_JOIN_TOKEN from previous run>
-
-./edgecore/edgecore_join.sh
+./edgecore/get_join_command.sh
 ```
+
+Cloudcore replaces the join token every 12 hours, so do step 3 immediately. After the join, the node uses its certificate.
+
+### 3. Join the node
+
+Run the printed command on the edge node. It installs `keadm` with the cloudcore version and joins the node. The join also enables the edgecore metaServer and edgeStream and sets `clusterDNS`, so that Cilium can reach the API, `kubectl logs`/`exec` work, and pods on the edge node get cluster DNS.
 
 To make sure that the node is connected, do `kubectl get nodes`. The node has the label `node-role.kubernetes.io/edge`.
 
