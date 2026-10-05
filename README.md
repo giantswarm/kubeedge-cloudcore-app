@@ -48,6 +48,36 @@ affinity:
 1. Update the `tag` field in [`vendir.yml`](vendir.yml) to the desired upstream version.
 2. Run `sync/sync.sh` which will retrieve the upstream chart, customize it for Giant Swarm, and update the chart files.
 
+## Connecting an edge node
+
+Note that `keadm` can change across versions and cilium support _matures_ over time. So it is best to check this procedure against upstream release notes when deploying a new version.
+
+The edge node must reach the external IP of the `cloudcore` Service on ports `10000` (cloudhub) and `10002` (certificates). It does not need access to the Kubernetes API.
+
+### 1. Install the prerequisites
+
+Run this on the edge node. It installs containerd, runc, the CNI plugins and crictl.
+
+```sh
+curl -sfL https://raw.githubusercontent.com/giantswarm/kubeedge-cloudcore-app/main/edgecore/edgecore_prerequisites.sh | sudo bash
+```
+
+### 2. Get the join command
+
+Run this with the workload cluster kubeconfig. It prints the command for step 3. Set `NAMESPACE` if cloudcore does not run in `kubeedge`.
+
+```sh
+./edgecore/get_join_command.sh
+```
+
+Cloudcore replaces the join token every 12 hours, so do step 3 immediately. After the join, the node uses its certificate.
+
+### 3. Join the node
+
+Run the printed command on the edge node. It installs `keadm` with the cloudcore version and joins the node. The join also enables the edgecore metaServer and edgeStream and sets `clusterDNS`, so that Cilium can reach the API, `kubectl logs`/`exec` work, and pods on the edge node get cluster DNS.
+
+To make sure that the node is connected, do `kubectl get nodes`. The node has the label `node-role.kubernetes.io/edge`.
+
 ## Credit
 
 - https://github.com/kubeedge/kubeedge

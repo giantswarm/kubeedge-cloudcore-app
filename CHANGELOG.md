@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-29
+
+### Fixed
+
+- Run `cloud-iptables-manager` on control plane nodes, so that `kubectl logs` and `kubectl exec` work for pods on edge nodes.
+- Turn off the client-go `WatchListClient` feature in `cilium-kubeedge`, because the KubeEdge metaServer does not support it.
+- The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
+- Target the release namespace in the policy exceptions instead of the hardcoded `kubeedge` namespace.
+
+## [0.6.0] - 2026-09-28
+
 ### Added
 
 - Run the sync script automatically on Renovate vendir branches and push the result for review.
@@ -21,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix CRD subchart version calculation.
+- Replace `+` in the `app.kubernetes.io/version` label so that it is a valid label value.
 
 ## [0.5.0] - 2026-04-07
 
@@ -67,7 +79,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Patch all CRDs to ensure they cannot be deleted by Helm.
 - Add CRD subchart as a dependency to satisfy the linter.
 
-[Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/giantswarm/kubeedge-cloudcore-app/compare/v0.2.0...v0.3.0
