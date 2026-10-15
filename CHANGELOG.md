@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update architect to v10.13.2 (giantswarm/kubeedge-cloudcore-app#109)
 - Update architect to v10.13.4 (giantswarm/kubeedge-cloudcore-app#111)
 
+### Fixed
+
+- Fix changelog generation script.
+
 ## [0.7.0] - 2026-09-29
 
 ### Fixed
