@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use Linux tools to manipulate chart label instead of an inscrutable Perl command.
 - Update architect to v10.14.7 (giantswarm/kubeedge-cloudcore-app#116)
 - Update carvel-dev/vendir to v0.46.3 (giantswarm/kubeedge-cloudcore-app#122)
+- Update architect to v10.14.10 (giantswarm/kubeedge-cloudcore-app#123)
 
 ### Fixed
 
