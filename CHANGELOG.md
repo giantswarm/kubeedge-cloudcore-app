@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update actions/create-github-app-token to v3.3.0 (giantswarm/kubeedge-cloudcore-app#127)
 - Update architect to v10.14.18 (giantswarm/kubeedge-cloudcore-app#128)
 - Update architect to v10.16.3 (giantswarm/kubeedge-cloudcore-app#130)
+- Update architect to v10.16.5 (giantswarm/kubeedge-cloudcore-app#132)
 
 ### Fixed
 
