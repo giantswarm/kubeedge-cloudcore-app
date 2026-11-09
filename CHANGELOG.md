@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update architect to v10.16.5 (giantswarm/kubeedge-cloudcore-app#132)
 - Update architect to v10.16.6 (giantswarm/kubeedge-cloudcore-app#134)
 - Update architect to v10.17.4 (giantswarm/kubeedge-cloudcore-app#139)
+- Update mikefarah/yq to v4.54.3 (giantswarm/kubeedge-cloudcore-app#140)
 
 ### Fixed
 
