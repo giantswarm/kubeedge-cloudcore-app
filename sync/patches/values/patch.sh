@@ -16,3 +16,10 @@ git apply "${script_dir_rel}/_values.yaml.patch"
 cp "${script_dir_rel}/values.schema.json" ./helm/kubeedge-cloudcore/
 
 { set +x; } 2>/dev/null
+
+# Generate schema
+echo "Generating values schema..."
+if ! helm plugin list | grep -q values-schema-json; then
+  helm plugin install https://github.com/losisin/helm-values-schema-json.git --verify=false || true
+fi
+helm schema -f "${CHART_DIR}"/values.yaml -o "${CHART_DIR}"/values.schema.json

@@ -35,4 +35,3 @@ vendir sync
 ./sync/patches/chart-label/patch.sh
 # crds should always be last
 ./sync/patches/crds/patch.sh
-./sync/patches/chart-label/patch.sh
