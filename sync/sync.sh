@@ -32,6 +32,7 @@ vendir sync
 ./sync/patches/policy-exceptions/patch.sh
 ./sync/patches/readme/patch.sh
 ./sync/patches/kube-linter/patch.sh
+./sync/patches/chart-label/patch.sh
 # crds should always be last
 ./sync/patches/crds/patch.sh
 ./sync/patches/chart-label/patch.sh
