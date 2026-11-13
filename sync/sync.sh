@@ -4,8 +4,18 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly dir
-cd "${dir}/.."
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly SCRIPT_DIR
+cd "${SCRIPT_DIR}/.."
+source ${SCRIPT_DIR}/_helpers.sh
+
+# test if requirements are installed
+PROGRAMS=("yq" "jq" "vendir")
+for program in "${PROGRAMS[@]}"; do
+    if ! command -v "${program}" &> /dev/null; then
+        echo "${program} not installed; aborting."
+        exit 1
+    fi
+done
 
 set -x
 # Sync using vendir
@@ -22,6 +32,6 @@ vendir sync
 ./sync/patches/policy-exceptions/patch.sh
 ./sync/patches/readme/patch.sh
 ./sync/patches/kube-linter/patch.sh
+./sync/patches/chart-label/patch.sh
 # crds should always be last
 ./sync/patches/crds/patch.sh
-./sync/patches/chart-label/patch.sh

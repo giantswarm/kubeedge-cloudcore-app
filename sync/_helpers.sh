@@ -1,13 +1,9 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-set -o pipefail
+# shellcheck shell=bash
 
 # root dir of the git repository
-REPO_DIR=$(git rev-parse --show-toplevel) ; readonly repo_dir
+REPO_DIR=$(git rev-parse --show-toplevel) ; readonly REPO_DIR
 
-SCRIPT_DIR_REL=".${SCRIPT_DIR#"${REPO_DIR}"}" ; readonly SCRIPT_DIR
+SCRIPT_DIR_REL=".${SCRIPT_DIR#"${REPO_DIR}"}" ; readonly SCRIPT_DIR_REL
 
 # root dir of the generated helm chart
 CHART_DIR="${REPO_DIR}/helm/kubeedge-cloudcore" ; readonly CHART_DIR
@@ -17,3 +13,6 @@ CRD_CHART_DIR="${REPO_DIR}/helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crd
 
 # root dir of the vendir synced chart
 VENDIR_SYNC_DIR="${REPO_DIR}/vendor/kubeedge-cloudcore/manifests/charts/cloudcore" ; readonly VENDIR_SYNC_DIR
+
+# used by sync/changelog.sh to add the upstream chart name to the changelog entry.
+UPSTREAM_NAME="cloudcore" ; readonly UPSTREAM_NAME

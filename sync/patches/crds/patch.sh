@@ -4,20 +4,17 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-repo_dir=$(git rev-parse --show-toplevel) ; readonly repo_dir
-script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_dir
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly SCRIPT_DIR
+source "${SCRIPT_DIR}"/../../_helpers.sh
 
-cd "${repo_dir}"
-
-cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/
-mkdir ./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates -p || true
-cp ./vendor/kubeedge-cloudcore/manifests/charts/cloudcore/crds/* ./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates/
+cp -r "${SCRIPT_DIR}"/manifests/* "${CHART_DIR}"/
+mkdir ${CRD_CHART_DIR}""/templates -p || true
+cp "${VENDIR_SYNC_DIR}"/crds/* "${CRD_CHART_DIR}"/templates/
 
 # update the crd Chart.yaml if the CRDs have changed
 CRDS_CHANGED=0
-PARENT_CHART_DIR="./helm/kubeedge-cloudcore"
-CHART_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds"
-CRDS_DIR="./helm/kubeedge-cloudcore/charts/kubeedge-cloudcore-crds/templates"
+PARENT_CHART_DIR="${CHART_DIR}"
+CRDS_DIR="${CRD_CHART_DIR}/templates"
 
 # add annotation to ensure helm doesn't delete CRDs
 for crd in "${CRDS_DIR}"/*; do
@@ -46,7 +43,7 @@ else
 fi
 
 # update the crd chart version
-sed -i -E "s/^(version: ).*/\1${CRD_CHART_VERSION}/" "${CHART_DIR}/Chart.yaml"
+sed -i -E "s/^(version: ).*/\1${CRD_CHART_VERSION}/" "${CRD_CHART_DIR}/Chart.yaml"
 
 # replace the placeholder in the main chart's dependencies
 sed -i -E "s/CRD_VERSION_PLACEHOLDER/${CRD_CHART_VERSION}/" "${PARENT_CHART_DIR}/Chart.yaml"

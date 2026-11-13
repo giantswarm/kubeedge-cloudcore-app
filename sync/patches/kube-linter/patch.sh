@@ -4,9 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-repo_dir=$(git rev-parse --show-toplevel) ; readonly repo_dir
-script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_dir
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly SCRIPT_DIR
+source "${SCRIPT_DIR}"/../../_helpers.sh
 
-cd "${repo_dir}"
-
-cp -r "${script_dir}"/kube-linter.yaml ./helm/kubeedge-cloudcore/.kube-linter.yaml
+cp -r "${SCRIPT_DIR}"/kube-linter.yaml "${CHART_DIR}"/.kube-linter.yaml

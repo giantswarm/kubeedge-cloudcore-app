@@ -4,12 +4,10 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-repo_dir=$(git rev-parse --show-toplevel) ; readonly repo_dir
-script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly script_dir
-
-cd "${repo_dir}"
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly SCRIPT_DIR
+source "${SCRIPT_DIR}"/../../_helpers.sh
 
 set -x
-git apply "${script_dir}/_helpers.tpl.patch"
+git apply "${SCRIPT_DIR}/_helpers.tpl.patch"
 { set +x; } 2>/dev/null
-cp -r "${script_dir}"/manifests/* ./helm/kubeedge-cloudcore/templates/
+cp -r "${SCRIPT_DIR}"/manifests/* "${CHART_DIR}"/templates/
